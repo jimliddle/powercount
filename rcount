@@ -1,0 +1,22 @@
+# Prompt user to enter the directory path
+Write-Host "Enter the directory path:"
+$directory = Read-Host
+
+# Get the current date and time
+$startTime = Get-Date
+
+# Use the Get-ChildItem cmdlet to get a list of all files in the specified directory and its subdirectories
+$files = Get-ChildItem -Path $directory -Recurse -File -ErrorAction SilentlyContinue
+
+# Use the Measure-Object cmdlet to count the number of files
+$fileCount = $files | Measure-Object | Select-Object -ExpandProperty Count
+
+# Get the current date and time again
+$endTime = Get-Date
+
+# Calculate the elapsed time
+$elapsedTime = New-TimeSpan -Start $startTime -End $endTime
+
+# Output the number of files and elapsed time to the console
+Write-Host "Number of files: $fileCount"
+Write-Host "Elapsed time: $elapsedTime"
